@@ -19,6 +19,7 @@ dist/
 # Local config and secrets
 .env
 .env.*
+!.env.example
 
 # Editor and OS files
 .vscode/

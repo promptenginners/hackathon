@@ -39,3 +39,24 @@ python -m venv .venv
 pip install -e ".[test,agent]"
 pytest
 ```
+
+## Modelo del agente
+
+El ejemplo usa Gemini 3.1 Flash-Lite por default:
+
+```text
+google_genai:gemini-3.1-flash-lite
+```
+
+Configura tu API key de Google AI Studio antes de correr el agente:
+
+```powershell
+$env:GOOGLE_API_KEY="tu_api_key"
+python examples/agent_example.py
+```
+
+Para cambiar de modelo sin editar codigo:
+
+```powershell
+$env:CHAT_MODEL="google_genai:gemini-3.1-flash-lite"
+```

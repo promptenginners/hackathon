@@ -32,7 +32,7 @@ Reglas obligatorias:
 
 def build_agent():
     model = init_chat_model(
-        model=os.getenv("CHAT_MODEL", "google_genai:gemini-flash-latest"),
+        model=os.getenv("CHAT_MODEL", "google_genai:gemini-3.1-flash-lite"),
         temperature=0.0,
     )
 
