@@ -2,7 +2,8 @@
 
 ## Principio
 
-Agrocapital es la fuente principal para recomendar productos financieros.
+Agrocapital es la fuente principal para recomendar productos financieros y
+generar una cotizacion preliminar.
 FIRA se usa como fuente de contexto publico y sectorial, no como aprobador
 automatico de credito.
 
@@ -24,11 +25,13 @@ El motor devuelve:
 - Fuente del producto.
 - Contexto FIRA.
 - Plazo, comisiones y CAT cuando Agrocapital los publica.
+- Datos base para cotizacion preliminar.
 - Documentos faltantes.
 - Score de oportunidad.
 - Prioridad.
 - Riesgo de abandono.
 - Siguiente accion comercial.
+- Resumen para asesor o envio por Gmail.
 
 ## Nota para demo
 

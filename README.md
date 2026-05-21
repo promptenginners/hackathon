@@ -2,8 +2,37 @@
 
 Repositorio para el hackathon de agentes inteligentes Build Day 2026.
 
-Este modulo contiene la parte de reglas de negocio para recomendar productos
-financieros de Agrocapital y entregar contexto publico de FIRA al agente.
+AgroBot es un bot de cotizacion y prediagnostico comercial para Agrocapital.
+Recibe solicitudes por WhatsApp, recomienda productos financieros, genera datos
+para toma de decision y puede enviar una salida al asesor por Gmail.
+
+## Tecnologias decididas
+
+- Base de datos: Supabase.
+- Agente: LangChain.
+- LLM: Gemini 3.1 Flash-Lite.
+- Canal de entrada: WhatsApp.
+- Salida operativa: Gmail.
+- Contexto externo: API/Fuentes FIRA.
+- Reglas de negocio: catalogo Agrocapital + contexto FIRA.
+
+## Responsables
+
+- Agente: Frank Malache.
+- Reglas de negocio: Cristina.
+- Data, LLM y dashboard: Gerardo.
+
+## Producto
+
+Un bot de cotizacion que genere datos accionables para toma de decision:
+
+- producto financiero sugerido.
+- score de oportunidad.
+- prioridad comercial.
+- riesgo de abandono.
+- documentos faltantes.
+- siguiente accion recomendada.
+- resumen para asesor.
 
 ## Estructura
 
@@ -11,6 +40,7 @@ financieros de Agrocapital y entregar contexto publico de FIRA al agente.
 - `src/agrobot_rules/engine.py`: motor de recomendacion, scoring y siguiente accion.
 - `src/agrobot_rules/tools.py`: tools listas para conectar con LangChain.
 - `src/agrobot_rules/fira_client.py`: cliente preparado para una API FIRA futura.
+- `docs/arquitectura.md`: stack tecnico y flujo de integraciones.
 - `docs/reglas_negocio.md`: resumen de reglas para el equipo.
 - `tests/test_engine.py`: pruebas basicas del motor.
 
