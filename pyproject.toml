@@ -1,0 +1,25 @@
+[project]
+name = "agrobot-agrocapital-rules"
+version = "0.1.0"
+description = "Reglas de negocio para AgroBot Agrocapital"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "langchain-anthropic>=1.4.3",
+    "requests>=2.31.0",
+]
+
+[project.optional-dependencies]
+agent = [
+    "langchain-core>=0.3.0",
+]
+test = [
+    "pytest>=8.0.0",
+]
+
+[build-system]
+requires = ["setuptools>=69.0.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
