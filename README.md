@@ -16,11 +16,6 @@ para toma de decision y puede enviar una salida al asesor por Gmail.
 - Contexto externo: API/Fuentes FIRA.
 - Reglas de negocio: catalogo Agrocapital + contexto FIRA.
 
-## Responsables
-
-- Agente: Frank Malache.
-- Reglas de negocio: Cristina.
-- Data, LLM y dashboard: Gerardo.
 
 ## Producto
 

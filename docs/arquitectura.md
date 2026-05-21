@@ -10,6 +10,11 @@
 - Fuente externa: FIRA.
 - Reglas de negocio: productos Agrocapital y contexto FIRA.
 
+## API key
+
+La API key de Gemini no debe guardarse en GitHub. Configurala en `.env` usando
+la variable `GOOGLE_API_KEY`, tomando como base `.env.example`.
+
 ## Flujo principal
 
 1. El prospecto escribe por WhatsApp.
