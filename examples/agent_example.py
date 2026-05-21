@@ -10,6 +10,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "..", "src"))
 from agrobot_rules.tools import (
     consultar_contexto_fira,
     consultar_servicios_agrocapital,
+    enviar_resumen_asesor_gmail,
     recomendar_credito_agrocapital,
 )
 
@@ -27,6 +28,7 @@ Reglas obligatorias:
 - Si faltan datos, pide ubicacion, actividad, monto, destino del credito,
   urgencia y documentos disponibles.
 - Cuando tengas datos suficientes, usa la tool recomendar_credito_agrocapital.
+- Si el asesor necesita salida por correo, usa enviar_resumen_asesor_gmail.
 """
 
 
@@ -42,6 +44,7 @@ def build_agent():
             recomendar_credito_agrocapital,
             consultar_contexto_fira,
             consultar_servicios_agrocapital,
+            enviar_resumen_asesor_gmail,
         ],
         system_prompt=SYSTEM_PROMPT,
     )

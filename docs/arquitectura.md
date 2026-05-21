@@ -26,6 +26,19 @@ la variable `GOOGLE_API_KEY`, tomando como base `.env.example`.
 7. AgroBot genera resumen para el asesor.
 8. Gmail envia la salida operativa al equipo comercial.
 
+## Salida por Gmail
+
+AgroBot usa la API de Gmail con OAuth y el permiso `gmail.send`. Para la demo:
+
+1. Habilitar Gmail API en Google Cloud.
+2. Configurar pantalla de consentimiento OAuth.
+3. Crear un OAuth Client de tipo Desktop app.
+4. Descargar el JSON como `credentials.json` en la raiz del repo.
+5. Ejecutar `python examples/gmail_send_example.py` para generar `token.json`.
+
+`credentials.json` y `token.json` estan ignorados por Git porque contienen
+secretos locales.
+
 ## Datos minimos para Supabase
 
 Tabla sugerida `leads`:

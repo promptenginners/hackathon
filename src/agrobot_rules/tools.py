@@ -9,6 +9,7 @@ except ImportError:  # pragma: no cover
 from agrobot_rules.catalog import AGROCAPITAL_SERVICES
 from agrobot_rules.engine import recommend_credit
 from agrobot_rules.fira_client import public_fira_context
+from agrobot_rules.gmail_client import build_advisor_summary_email, send_gmail_message
 from agrobot_rules.models import ProspectInput
 
 
@@ -62,3 +63,19 @@ def consultar_servicios_agrocapital() -> dict:
         "url": "https://agrocapital.com.mx/productos-y-servicios.html",
         "servicios": AGROCAPITAL_SERVICES,
     }
+
+
+@tool
+def enviar_resumen_asesor_gmail(
+    nombre_prospecto: str,
+    correo_asesor: str,
+    recomendacion: dict,
+) -> dict:
+    """Envia por Gmail el resumen operativo de una oportunidad al asesor comercial."""
+
+    email = build_advisor_summary_email(
+        lead_name=nombre_prospecto,
+        advisor_email=correo_asesor,
+        recommendation=recomendacion,
+    )
+    return send_gmail_message(**email)

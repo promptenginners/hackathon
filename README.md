@@ -35,6 +35,7 @@ Un bot de cotizacion que genere datos accionables para toma de decision:
 - `src/agrobot_rules/engine.py`: motor de recomendacion, scoring y siguiente accion.
 - `src/agrobot_rules/tools.py`: tools listas para conectar con LangChain.
 - `src/agrobot_rules/fira_client.py`: cliente preparado para una API FIRA futura.
+- `src/agrobot_rules/gmail_client.py`: salida operativa por Gmail API.
 - `docs/arquitectura.md`: stack tecnico y flujo de integraciones.
 - `docs/reglas_negocio.md`: resumen de reglas para el equipo.
 - `tests/test_engine.py`: pruebas basicas del motor.
@@ -85,3 +86,25 @@ Para cambiar de modelo sin editar codigo:
 ```powershell
 $env:CHAT_MODEL="google_genai:gemini-3.1-flash-lite"
 ```
+
+## Salida por Gmail
+
+La integracion usa Gmail API con OAuth y scope `gmail.send`.
+
+1. Habilita Gmail API en Google Cloud.
+2. Crea un OAuth Client de tipo Desktop app.
+3. Descarga el archivo como `credentials.json` en la raiz del repo.
+4. Configura el destinatario:
+
+```powershell
+$env:GMAIL_ADVISOR_TO="asesor@tu-dominio.com"
+```
+
+5. Ejecuta una prueba:
+
+```powershell
+python examples/gmail_send_example.py
+```
+
+La primera ejecucion abre el navegador para autorizar Gmail y genera `token.json`.
+`credentials.json` y `token.json` no se suben a GitHub.
