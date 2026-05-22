@@ -3,19 +3,21 @@
 Repositorio para el hackathon de agentes inteligentes Build Day 2026.
 
 AgroBot es un bot de cotizacion y prediagnostico comercial para Agrocapital.
-Recibe solicitudes desde una interfaz o API interna, recomienda productos
-financieros, genera datos para toma de decision y puede enviar una salida al
-asesor por Gmail.
+Recibe solicitudes por Telegram, recomienda productos financieros, genera datos
+para toma de decision y puede enviar una salida al asesor por Gmail.
 
 ## Tecnologias decididas
 
 - Base de datos: Supabase.
 - Agente: LangChain.
 - LLM: Gemini 3.1 Flash-Lite.
-- Canal de entrada: interfaz o API interna.
+- Canal de entrada: Telegram.
 - Salida operativa: Gmail.
 - Contexto externo: API/Fuentes FIRA.
 - Reglas de negocio: catalogo Agrocapital + contexto FIRA.
+
+Nota: la integracion de Telegram la implementa otro integrante del equipo. Este
+repo mantiene las reglas de negocio, Gmail, Gemini y la documentacion del flujo.
 
 
 ## Producto

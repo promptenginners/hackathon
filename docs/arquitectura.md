@@ -5,7 +5,7 @@
 - BD: Supabase.
 - Agente: LangChain.
 - LLM: Gemini 3.1 Flash-Lite.
-- Canal de entrada: interfaz o API interna.
+- Canal de entrada: Telegram.
 - Salida: Gmail.
 - Fuente externa: FIRA.
 - Reglas de negocio: productos Agrocapital y contexto FIRA.
@@ -17,7 +17,7 @@ la variable `GOOGLE_API_KEY`, tomando como base `.env.example`.
 
 ## Flujo principal
 
-1. El prospecto o asesor captura la solicitud en la interfaz o API interna.
+1. El prospecto o asesor envia la solicitud por Telegram.
 2. LangChain orquesta AgroBot.
 3. Gemini interpreta la solicitud y detecta datos faltantes.
 4. AgroBot consulta las reglas de negocio de Agrocapital.
@@ -25,6 +25,10 @@ la variable `GOOGLE_API_KEY`, tomando como base `.env.example`.
 6. Supabase guarda lead, cotizacion, score, documentos faltantes y siguiente accion.
 7. AgroBot genera resumen para el asesor.
 8. Gmail envia la salida operativa al equipo comercial.
+
+La integracion de Telegram queda a cargo de otro integrante del equipo. El
+contrato esperado para este modulo es recibir los datos del prospecto ya
+estructurados o una conversacion que el agente pueda diagnosticar.
 
 ## Salida por Gmail
 
