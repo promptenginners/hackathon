@@ -108,3 +108,28 @@ python examples/gmail_send_example.py
 
 La primera ejecucion abre el navegador para autorizar Gmail y genera `token.json`.
 `credentials.json` y `token.json` no se suben a GitHub.
+
+## Prueba de WhatsApp
+
+Configura en `.env`:
+
+```powershell
+TWILIO_ACCOUNT_SID=...
+TWILIO_AUTH_TOKEN=...
+TWILIO_WHATSAPP_FROM=whatsapp:+14155238886
+TWILIO_WHATSAPP_TO=whatsapp:+5216681234567
+```
+
+Luego ejecuta:
+
+```powershell
+python prueba_whatsapp.py
+```
+
+Si Twilio dice `sent` o `queued` pero no llega al celular, revisa:
+
+- El celular debe estar unido al WhatsApp Sandbox de Twilio.
+- Desde tu WhatsApp envia el codigo `join ...` que Twilio muestra en Sandbox.
+- El numero destino debe incluir `whatsapp:` y codigo de pais.
+- En Mexico normalmente usa formato `whatsapp:+52...` o `whatsapp:+521...` segun lo acepte tu sandbox.
+- Revisa el estado final: `delivered`, `failed` o `undelivered`.

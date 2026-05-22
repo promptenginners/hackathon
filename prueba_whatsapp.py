@@ -1,31 +1,54 @@
 import os
+import time
+
 from dotenv import load_dotenv
 from twilio.rest import Client
 
-# 1. Cargar las llaves ocultas del archivo .env
 load_dotenv()
 
 account_sid = os.getenv("TWILIO_ACCOUNT_SID")
 auth_token = os.getenv("TWILIO_AUTH_TOKEN")
-numero_twilio = os.getenv("TWILIO_WHATSAPP_NUMBER") # Ej: 'whatsapp:+14155238886'
+numero_twilio = os.getenv("TWILIO_WHATSAPP_FROM") or os.getenv("TWILIO_WHATSAPP_NUMBER")
+numero_destino = os.getenv("TWILIO_WHATSAPP_TO")
 
-print("DEBUG SID:", account_sid)
-print("DEBUG TOKEN:", str(auth_token)[:5] + "...") # Solo imprimimos los primeros 5 caracteres por seguridad
+if not account_sid or not auth_token or not numero_twilio or not numero_destino:
+    raise SystemExit(
+        "Faltan variables. Configura TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, "
+        "TWILIO_WHATSAPP_FROM y TWILIO_WHATSAPP_TO en .env"
+    )
 
-# 2. Inicializar el motor de Twilio
-cliente = Client(account_sid, auth_token)
+if not numero_twilio.startswith("whatsapp:") or not numero_destino.startswith("whatsapp:"):
+    raise SystemExit("Los numeros deben iniciar con 'whatsapp:', ejemplo whatsapp:+5216681234567")
 
-# 3. Disparar el mensaje de prueba
 try:
+    cliente = Client(account_sid, auth_token)
+
     print("Enviando mensaje de prueba...")
     mensaje = cliente.messages.create(
         from_=numero_twilio,
-        body="🚀 ¡Hackathon mode ON! Si estás leyendo esto, la conexión de Twilio funciona al 100%.",
-        
-        # AQUÍ PON TU NÚMERO DE CELULAR PERSONAL (con código de país)
-        to="whatsapp:+526682410777" 
+        body="AgroBot: prueba de conexion por WhatsApp desde Twilio.",
+        to=numero_destino,
     )
-    print(f"✅ ¡Éxito brutal! Mensaje enviado. ID: {mensaje.sid}")
-    
-except Exception as e:
-    print(f"❌ Error al enviar el mensaje: {e}")
+    print(f"Mensaje aceptado por Twilio. SID: {mensaje.sid}")
+    print(f"Estado inicial: {mensaje.status}")
+
+    for intento in range(1, 7):
+        time.sleep(2)
+        estado = cliente.messages(mensaje.sid).fetch()
+        print(f"Estado {intento}: {estado.status}")
+
+        if estado.status in {"delivered", "read"}:
+            print("Entregado correctamente.")
+            break
+
+        if estado.status in {"failed", "undelivered"}:
+            print("Twilio no pudo entregar el mensaje.")
+            print(f"Error code: {estado.error_code}")
+            print(f"Error message: {estado.error_message}")
+            break
+    else:
+        print("Twilio acepto el mensaje, pero aun no confirma entrega.")
+        print("Revisa que tu celular este unido al WhatsApp Sandbox de Twilio.")
+
+except Exception as error:
+    print(f"Error al enviar el mensaje: {error}")
