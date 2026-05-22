@@ -5,7 +5,9 @@ description = "Reglas de negocio para AgroBot Agrocapital"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    "google-genai>=1.75.0",
     "langchain-anthropic>=1.4.3",
+    "python-dotenv>=1.2.2",
     "requests>=2.31.0",
 ]
 
