@@ -24,6 +24,9 @@ agent = [
 test = [
     "pytest>=8.0.0",
 ]
+docs = [
+    "pypdf>=6.0.0",
+]
 
 [build-system]
 requires = ["setuptools>=69.0.0"]

@@ -39,6 +39,7 @@ Un bot de cotizacion que genere datos accionables para toma de decision:
 - `src/agrobot_rules/tools.py`: tools listas para conectar con LangChain.
 - `src/agrobot_rules/fira_client.py`: cliente preparado para una API FIRA futura.
 - `src/agrobot_rules/gmail_client.py`: salida operativa por Gmail API.
+- `src/agrobot_rules/document_validator.py`: revision preliminar de documentos de credito.
 - `docs/arquitectura.md`: stack tecnico y flujo de integraciones.
 - `docs/reglas_negocio.md`: resumen de reglas para el equipo.
 - `tests/test_engine.py`: pruebas basicas del motor.
@@ -111,3 +112,30 @@ python examples/gmail_send_example.py
 
 La primera ejecucion abre el navegador para autorizar Gmail y genera `token.json`.
 `credentials.json` y `token.json` no se suben a GitHub.
+
+## Revision de documentos
+
+La integracion de Telegram debe descargar los archivos recibidos y pasar a
+AgroBot una lista con `tipo`, `archivo_local` o `texto`. Ejemplo:
+
+```python
+from agrobot_rules.document_validator import DocumentInput, DocumentReviewRequest, review_credit_documents
+
+result = review_credit_documents(
+    DocumentReviewRequest(
+        nombre_prospecto="Rancho La Esperanza",
+        producto_sugerido="Credito Refaccionario",
+        documentos=[
+            DocumentInput(tipo="identificacion", archivo_local="uploads/ine.pdf"),
+            DocumentInput(tipo="comprobante fiscal", texto="RFC: RLE010101ABC"),
+        ],
+        datos_esperados={"RFC": "RLE010101ABC"},
+    )
+)
+```
+
+Para leer PDFs instala:
+
+```powershell
+pip install -e ".[docs]"
+```

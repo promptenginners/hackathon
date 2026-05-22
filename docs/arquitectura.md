@@ -21,14 +21,36 @@ la variable `GOOGLE_API_KEY`, tomando como base `.env.example`.
 2. LangChain orquesta AgroBot.
 3. Gemini interpreta la solicitud y detecta datos faltantes.
 4. AgroBot consulta las reglas de negocio de Agrocapital.
-5. AgroBot consulta contexto FIRA cuando necesita validar informacion sectorial.
-6. Supabase guarda lead, cotizacion, score, documentos faltantes y siguiente accion.
-7. AgroBot genera resumen para el asesor.
-8. Gmail envia la salida operativa al equipo comercial.
+5. AgroBot revisa documentos recibidos por Telegram cuando existan.
+6. AgroBot consulta contexto FIRA cuando necesita validar informacion sectorial.
+7. Supabase guarda lead, cotizacion, score, documentos faltantes y siguiente accion.
+8. AgroBot genera resumen para el asesor.
+9. Gmail envia la salida operativa al equipo comercial.
 
 La integracion de Telegram queda a cargo de otro integrante del equipo. El
 contrato esperado para este modulo es recibir los datos del prospecto ya
 estructurados o una conversacion que el agente pueda diagnosticar.
+
+## Revision de documentos
+
+El modulo de documentos sigue el patron del `agent_demo.py` del starter kit:
+recibe un evento de documento, valida existencia/tipo/datos esperados y emite un
+reporte accionable. En AgroBot no se usa S3 ni OCR pesado por default; Telegram
+debe entregar el archivo descargado o texto extraido.
+
+Entrada esperada desde Telegram:
+
+- `nombre_prospecto`
+- `producto_sugerido`
+- `documentos`: lista con `tipo`, `archivo_local` o `texto`
+- `datos_esperados`: RFC, nombre, monto u otros datos a verificar
+
+Salida:
+
+- estado documental: `completo`, `incompleto` o `requiere_revision`
+- documentos faltantes
+- datos verificados
+- siguiente accion
 
 ## Salida por Gmail
 

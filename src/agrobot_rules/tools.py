@@ -7,6 +7,7 @@ except ImportError:  # pragma: no cover
         return func
 
 from agrobot_rules.catalog import AGROCAPITAL_SERVICES
+from agrobot_rules.document_validator import DocumentInput, DocumentReviewRequest, review_credit_documents
 from agrobot_rules.engine import recommend_credit
 from agrobot_rules.fira_client import public_fira_context
 from agrobot_rules.gmail_client import build_advisor_summary_email, send_gmail_message
@@ -79,3 +80,28 @@ def enviar_resumen_asesor_gmail(
         recommendation=recomendacion,
     )
     return send_gmail_message(**email)
+
+
+@tool
+def revisar_documentos_credito(
+    nombre_prospecto: str,
+    documentos: list[dict],
+    producto_sugerido: str | None = None,
+    datos_esperados: dict | None = None,
+) -> dict:
+    """Revisa documentos recibidos para un expediente de credito Agrocapital."""
+
+    request = DocumentReviewRequest(
+        nombre_prospecto=nombre_prospecto,
+        producto_sugerido=producto_sugerido,
+        documentos=[
+            DocumentInput(
+                tipo=str(document.get("tipo", "")),
+                archivo_local=document.get("archivo_local"),
+                texto=document.get("texto"),
+            )
+            for document in documentos
+        ],
+        datos_esperados={str(key): str(value) for key, value in (datos_esperados or {}).items()},
+    )
+    return review_credit_documents(request)
