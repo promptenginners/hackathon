@@ -3,15 +3,16 @@
 Repositorio para el hackathon de agentes inteligentes Build Day 2026.
 
 AgroBot es un bot de cotizacion y prediagnostico comercial para Agrocapital.
-Recibe solicitudes por WhatsApp, recomienda productos financieros, genera datos
-para toma de decision y puede enviar una salida al asesor por Gmail.
+Recibe solicitudes desde una interfaz o API interna, recomienda productos
+financieros, genera datos para toma de decision y puede enviar una salida al
+asesor por Gmail.
 
 ## Tecnologias decididas
 
 - Base de datos: Supabase.
 - Agente: LangChain.
 - LLM: Gemini 3.1 Flash-Lite.
-- Canal de entrada: WhatsApp.
+- Canal de entrada: interfaz o API interna.
 - Salida operativa: Gmail.
 - Contexto externo: API/Fuentes FIRA.
 - Reglas de negocio: catalogo Agrocapital + contexto FIRA.
@@ -108,28 +109,3 @@ python examples/gmail_send_example.py
 
 La primera ejecucion abre el navegador para autorizar Gmail y genera `token.json`.
 `credentials.json` y `token.json` no se suben a GitHub.
-
-## Prueba de WhatsApp
-
-Configura en `.env`:
-
-```powershell
-TWILIO_ACCOUNT_SID=...
-TWILIO_AUTH_TOKEN=...
-TWILIO_WHATSAPP_FROM=whatsapp:+14155238886
-TWILIO_WHATSAPP_TO=whatsapp:+5216681234567
-```
-
-Luego ejecuta:
-
-```powershell
-python prueba_whatsapp.py
-```
-
-Si Twilio dice `sent` o `queued` pero no llega al celular, revisa:
-
-- El celular debe estar unido al WhatsApp Sandbox de Twilio.
-- Desde tu WhatsApp envia el codigo `join ...` que Twilio muestra en Sandbox.
-- El numero destino debe incluir `whatsapp:` y codigo de pais.
-- En Mexico normalmente usa formato `whatsapp:+52...` o `whatsapp:+521...` segun lo acepte tu sandbox.
-- Revisa el estado final: `delivered`, `failed` o `undelivered`.

@@ -5,7 +5,7 @@
 - BD: Supabase.
 - Agente: LangChain.
 - LLM: Gemini 3.1 Flash-Lite.
-- Canal de comunicacion: WhatsApp.
+- Canal de entrada: interfaz o API interna.
 - Salida: Gmail.
 - Fuente externa: FIRA.
 - Reglas de negocio: productos Agrocapital y contexto FIRA.
@@ -17,7 +17,7 @@ la variable `GOOGLE_API_KEY`, tomando como base `.env.example`.
 
 ## Flujo principal
 
-1. El prospecto escribe por WhatsApp.
+1. El prospecto o asesor captura la solicitud en la interfaz o API interna.
 2. LangChain orquesta AgroBot.
 3. Gemini interpreta la solicitud y detecta datos faltantes.
 4. AgroBot consulta las reglas de negocio de Agrocapital.
